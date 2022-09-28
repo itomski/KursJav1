@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.lubowiecki.jav1"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.lubowiecki.jav1"},{"l":"de.lubowiecki.jav1.patterns.singleton"},{"l":"de.lubowiecki.jav1.rechner"},{"l":"de.lubowiecki.jav1.uebung2"}];updateSearchResults();
