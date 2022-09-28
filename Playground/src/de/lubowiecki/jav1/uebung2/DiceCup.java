@@ -32,8 +32,9 @@ public class DiceCup {
 	 */
 	public int[] roll(int count) {
 		int[] arr = new int[count];
+		
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = DICE.roll();
+			arr[i] = roll();
 		}
 		return arr;
 	}
@@ -45,6 +46,7 @@ public class DiceCup {
 	 */
 	public String summary(int[] arr) {
 		StringBuilder output = new StringBuilder();
+		
 		int[] values = count(arr);
 		
 		for (int i = 0; i < values.length; i++) {

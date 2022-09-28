@@ -8,6 +8,9 @@ public class DiceCupTest {
 
 		// TODO: UI implementieren
 		
+		System.out.println(Dice.W100);
+		
+		
 		System.out.println(Dice.W6.roll());
 		System.out.println(Dice.W100.roll());
 		System.out.println(Dice.W10.roll());
