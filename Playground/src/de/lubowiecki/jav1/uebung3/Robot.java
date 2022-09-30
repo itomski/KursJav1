@@ -20,61 +20,67 @@ public class Robot {
 		this(0, 0, board);
 	}
 	
+	public Robot() {
+	}
+	
 	public enum Direction {
-		EAST, SOUTH, WEST, NORTH;
+		EAST /* 0 */, SOUTH /* 1 */, WEST /* 2 */, NORTH /* 3 */;
 	}
 	
 	public Point getPos() {
 		return new Point(pos); // Gibt eine Kopie der Position zurück
 	}
 
-	public void setPos(Point pos) {
-		this.pos = pos;
-	}
-
 	private void rotate(boolean positive) {
+		//  dir.ordinal() liefert die Nummer der aktuellen Richtung
 		int newOrd = (positive ? dir.ordinal() + 1 : dir.ordinal() + 3) % 4;
 		dir = Direction.values()[newOrd];
 	}
 	
 	private boolean move(boolean positive) {
 		
+		// Aktuelle Position wird in old als Backup gespeichert
+		// Kann die Bewegung nicht ausgeführt werden, wird die alte Position zu aktueller Position
 		Point old = new Point(pos);
 		
 		switch(dir) {
 			case EAST:
 				if(positive)
-					pos.x++;
+					pos.y++;
 				else
-					pos.x--;
+					pos.y--;
 				break;
 				
 			case WEST:
 				if(positive)
-					pos.x--;
+					pos.y--;
 				else
-					pos.x++;
+					pos.y++;
 				break;
 				
 			case SOUTH:
 				if(positive)
-					pos.y++;
+					pos.x++;
 				else
-					pos.y--;
+					pos.x--;
 				break;	
 		
 			case NORTH:
 				if(positive)
-					pos.y--;
+					pos.x--;
 				else
-					pos.y++;
+					pos.x++;
 				break;
 		}
 		
+		// Kann die gewünschte Bewegung ausgeführt werden?
 		if(board.set(this)) {
+			// Wenn ja, muss die alte Position gesäubert werden
 			board.clear(old);
 			return true;
 		}
+		// Wenn nein, bleibt der Roboter an seiner alten Position stehen
+		// Das Backup (old) wird wieder als aktuelle Position verwendet
 		pos = old;
 		return false;
 	}
@@ -94,6 +100,11 @@ public class Robot {
 	public boolean moveBackward() {
 		return move(false);
 	}
+	
+//	public boolean moveBackward() {
+//		// TODO: muss noch implementiert werden
+//		throw new UnsupportedOperationException("ist noch nicht implementiert");
+//	}
 	
 	@Override
 	public String toString() {
