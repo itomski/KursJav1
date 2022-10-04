@@ -1,5 +1,7 @@
 package de.lubowiecki.jav1;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -62,24 +64,56 @@ public class Person {
 
 	@Override
 	public String toString() {
-//		StringBuilder builder = new StringBuilder();
-//		builder.append("Person [id=");
-//		builder.append(id);
-//		builder.append(", firstName=");
-//		builder.append(firstName);
-//		builder.append(", lastName=");
-//		builder.append(lastName);
-//		builder.append(", active=");
-//		builder.append(active);
-//		builder.append("]");
-//		return builder.toString();
-		
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName);
+	}
+
+//	@Override
+//	public boolean equals(Object obj) {
+//		
+//		if (this == obj)
+//			return true;
+//		
+//		if (obj == null)
+//			return false;
+//		
+//		if (getClass() != obj.getClass())
+//			return false;
+//		
+//		Person other = (Person) obj;
+//		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName);
+//	}
+	
+//	@Override
+//	protected void finalize() throws Throwable {
+//		System.out.println(firstName + " " + lastName + ": UGH... ARRRGHHHH!!!!");
+//		super.finalize();
+//	}
 	
 	@Override
-	protected void finalize() throws Throwable {
-		System.out.println(firstName + " " + lastName + ": UGH... ARRRGHHHH!!!!");
-		super.finalize();
+	public boolean equals(Object obj) {
+		
+		if(this == obj)
+			return true;
+		
+		if(this == null)
+			return false;
+		
+		if(obj instanceof Person) {
+			
+			Person other = (Person) obj;
+			
+			if(this.firstName.equals(other.firstName)) {
+				if(this.lastName.equals(other.lastName)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 }
