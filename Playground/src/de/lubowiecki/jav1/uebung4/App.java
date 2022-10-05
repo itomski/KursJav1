@@ -1,5 +1,6 @@
 package de.lubowiecki.jav1.uebung4;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 // Controller
@@ -12,18 +13,97 @@ public class App {
 		new App().run();
 	}
 	
+	// Mehrsprachigkeit kann mir ResourceBundles umgesetzt werden
+	
 	private void run() {
 		
-		while(true) {
-			// SWITCH
+		app: while(true) {
+			switch(getInput("Eingabe").toLowerCase()) {
+				case "add":
+					add();
+					break;
+					
+				case "show":
+					show();
+					break;
+					
+				case "exit":
+					break app;
+					
+				default:
+					System.out.println("Üngültige Eingabe");
+			}
 		}
 		
-//		repository.add(new Product("Hammer", "Ganz toller Hammer aus Titan", 100, 35.99));
-//		repository.add(new Product("Zange", "Bla bla bla", 200, 19.99));
-//		
-//		for(Product p : repository.findAll()) {
-//			System.out.println(p);
-//		}
+		System.out.println("Ende des Programms");
 	}
-
+	
+	private void show() {
+		for(Product p : repository.findAll()) {
+			System.out.println(p);
+		}
+	}
+	
+	private void add() {
+		repository.add(create());
+	}
+	
+	private Product create() {
+		
+		Product p;
+		
+		if(getInput("Verderbliches Produkt [j/n]").toLowerCase().equals("j")) {
+			p = new PershableProduct();
+		}
+		else {
+			p = new Product();
+		}
+		
+		p.setName(getInput("Name"));
+		
+		p.setDescription(getInput("Beschreibung"));
+		
+		if(p instanceof PershableProduct) {
+			
+			while(true) {
+				try {
+					LocalDate expiryDate = LocalDate.parse(getInput("Verfallsdatum"));
+					((PershableProduct) p).setExpiryDate(expiryDate);
+					break;
+				}
+				catch(Exception e) {
+					System.out.println("Ungültiges Datums-Format (JJJJ-MM-TT).");
+				}
+			}
+		}
+		
+		while(true) {
+			try {
+				double price = Double.parseDouble(getInput("Preis"));
+				p.setPrice(price);
+				break;
+			}
+			catch(Exception e) {
+				System.out.println("Ungültiger Preis (z.B. 19.99).");
+			}
+		}
+		
+		while(true) {
+			try {
+				int count = Integer.parseInt(getInput("Anzahl"));
+				p.setCount(count);
+				break;
+			}
+			catch(Exception e) {
+				System.out.println("Ungültige Zahl.");
+			}
+		}
+		
+		return p;
+	}
+	
+	private String getInput(String label) {
+		System.out.printf("%n%s: ", label);
+		return scanner.nextLine().trim();
+	}
 }
