@@ -2,9 +2,18 @@ package de.lubowiecki.products;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
 	
-	private int id, count;
+	@Id
+	@GeneratedValue
+	private int id;
+	
+	private int count;
 	
 	private final LocalDate createdAt;
 	
@@ -91,6 +100,4 @@ public class Product {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 }

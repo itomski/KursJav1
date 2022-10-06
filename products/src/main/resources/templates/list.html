@@ -28,6 +28,7 @@
 								<th>Im Bestand seit</th>
 								<th>Anzahl</th>
 								<th>Preis</th>
+								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						
@@ -39,6 +40,10 @@
 								<td th:text="${p.createdAt}"></td>
 								<td th:text="${p.count}"></td>
 								<td th:text="${p.price}"></td>
+								<td>
+									<a th:href="@{/edit/{id}(id = ${p.id})}" class="btn btn-warning">EDIT</a>
+									<a th:href="@{/delete/{id}(id = ${p.id})}" class="btn btn-danger">DELETE</a>
+								</td>
 							</tr>
 						</tbody>
 						
